@@ -1,7 +1,9 @@
 package com.ra2.users.com_ra2_users.repository;
 
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,4 +40,24 @@ public class UserRepository {
             return user;
         }
     }
+
+     public int insertUser(User user){
+        String sql = """
+                INSERT INTO users (nom, descripcion, email, contrasena, ultimAcces, dataCreated, dataUpdated)
+                VALUES (?,?,?,?,?,?,?);
+                """;
+                LocalDateTime now = LocalDateTime.now();
+                Timestamp timestamp = Timestamp.valueOf(now);
+
+                return jdbcTemplate.update(sql,
+                user.getNom(),
+                user.getDescripcion(),
+                user.getEmail(),
+                user.getContrasena(),
+                null,              // ultimAcces → null al crear
+                timestamp,         // dataCreated → ahora
+                timestamp
+            );
+
+     }
 }
