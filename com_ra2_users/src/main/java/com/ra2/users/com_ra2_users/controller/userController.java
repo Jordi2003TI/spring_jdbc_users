@@ -37,7 +37,7 @@ public class userController {
         int result = userRepository.insertUser(user);
         
         if(result > 0){
-            return ResponseEntity.status(HttpStatus.CREATED).body("Usuario inserido correctamente " + user.getNom().toString());
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario inserido correctamente " + user.getNom().toString());
         }else{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al inserir el usuario");
         }
