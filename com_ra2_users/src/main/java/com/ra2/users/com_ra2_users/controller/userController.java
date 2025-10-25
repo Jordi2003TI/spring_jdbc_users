@@ -54,7 +54,7 @@ public class userController {
 
     // actualizamos uno de los usuarios a parti de la id y un User Json
     @PutMapping("user/{user_id}")
-    public ResponseEntity<User> updateUser(@PathVariable long user_id, @RequestBody User user) {
+    public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
         boolean updateUser = userRepository.updateUser(user_id, user);
         if(!updateUser){
             return ResponseEntity.ok(null);
@@ -75,11 +75,25 @@ public class userController {
         }
 
     }
-    // modificar un usario
-    @PatchMapping("/user")
-    public String updateUser(){
-        return "he actualiazado un usuario";
+    // modificar un usario pero de 1 solo parametro 
+    @PatchMapping("user/{user_id}/name")
+    public ResponseEntity<User> updateUserPatch(@PathVariable() long user_id,@RequestParam() String name) {
+
+        if(name.length() > 100){
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        boolean updated = userRepository.updateUserPatch(user_id, name);
+
+        if(!updated){
+            return ResponseEntity.notFound().build();
+        }
+
+        User usuarioActualizado = userRepository.findOne(user_id).get(0); 
+        return ResponseEntity.ok(usuarioActualizado);
     }
+
+
     // borra un usario
     @DeleteMapping("/user")
     public String deleteUser(){
