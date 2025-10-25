@@ -95,9 +95,15 @@ public class userController {
 
 
     // borra un usario
-    @DeleteMapping("/user")
-    public String deleteUser(){
-        return"He borrado un usuraio";
+    @DeleteMapping("/user/{user_id}")
+    public ResponseEntity<?> deleteUser(@PathVariable long user_id){
+        List<User> userEontrado = userRepository.findOne(user_id);
+
+        boolean deletedUser = userRepository.deleteUser(user_id);
+        if(deletedUser){
+            return ResponseEntity.ok(userEontrado.get(0) + "Fue eliminado correctamente");
+        }
+        return ResponseEntity.ok("El usuasrio con la id " + user_id + " no fue eocntrado");
     }
     
     

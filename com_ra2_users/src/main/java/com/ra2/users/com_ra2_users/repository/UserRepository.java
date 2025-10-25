@@ -89,4 +89,10 @@ public class UserRepository {
         return lineaAfectada > 0;
     }
 
+    public boolean deleteUser(long user_id){
+        String sql = "DELETE FROM users WHERE id=?";
+        int lineaAfectada = jdbcTemplate.update(sql, user_id);
+        return lineaAfectada >0;
+    }
+
 }
