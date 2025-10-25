@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,5 +60,21 @@ public class UserRepository {
                 timestamp
             );
 
+     }
+     // Encontrar a todos los usarios
+     public List<User> findAll(){
+        String sql = "SELECT * FROM users;";
+        return jdbcTemplate.query(sql, new UserRowMapper());
+     }
+     // Buscamos por id para que nos encuentre por una id
+     public List<User> findOne(long user_id){
+        String sql = "SELECT * FROM users WHERE id= ?;";
+        return jdbcTemplate.query(sql, new UserRowMapper(), user_id); // ponemos todos los datos que le vamos pasando por parametros
+     } 
+
+     public Boolean updateUser(long user_id, User user){
+        String sql = "UPDATE users SET nom = ?, descripcion=? ,email = ?, contrasena=? ,dataUpdated = ? WHERE id = ?";
+        int lineasAfectadas = jdbcTemplate.update(sql, user.getNom(), user.getDescripcion(), user.getEmail(), user.getContrasena(), Timestamp.valueOf(LocalDateTime.now()), user_id);
+        return lineasAfectadas > 0;
      }
 }

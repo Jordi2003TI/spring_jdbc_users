@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ComRa2UsersApplication<com_ra2_users>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ra2.users.com_ra2_users.ComRa2UsersApplication",
+            "projectName": "com_ra2_users",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
