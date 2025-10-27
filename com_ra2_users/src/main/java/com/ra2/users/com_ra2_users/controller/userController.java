@@ -31,13 +31,14 @@ public class userController {
     UserRepository userRepository;
 
     // Es para poder leer todos los usuarios que tenemos en la base de datos ne caso que no haya ninguno nos devolvera un null
-    @GetMapping("/user")
-    public List<User> getUser() {
+
+        @GetMapping("/user")
+        public ResponseEntity<List<User>> getUser() {
         List<User> users = userRepository.findAll();
         if(users.size() == 0){
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }else{
-            return users;
+            return ResponseEntity.status(HttpStatus.OK).body(users);
         }
         
     }
@@ -46,9 +47,9 @@ public class userController {
     public ResponseEntity<User> getOneUser(@PathVariable long user_id){
         List<User> oneUser = userRepository.findOne(user_id);
         if(oneUser == null || oneUser.isEmpty()){
-            return ResponseEntity.ok(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-         return ResponseEntity.ok(oneUser.get(0)); // hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
+         return ResponseEntity.status(HttpStatus.OK).body(oneUser.get(0)); // hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
     }
 
 
@@ -57,10 +58,10 @@ public class userController {
     public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
         boolean updateUser = userRepository.updateUser(user_id, user);
         if(!updateUser){
-            return ResponseEntity.ok(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         User usuarioActualizado = userRepository.findOne(user_id).get(0);
-        return ResponseEntity.ok(usuarioActualizado);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioActualizado);
     }
 
     // crear un usuario Hacemos que nos devuelva un Responsitive porque queremos que nos devuelva una respuesta HTTP basicamente devolvemos un estado + un mensaje 
@@ -80,30 +81,31 @@ public class userController {
     public ResponseEntity<User> updateUserPatch(@PathVariable() long user_id,@RequestParam() String name) {
 
         if(name.length() > 100){
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
         boolean updated = userRepository.updateUserPatch(user_id, name);
 
         if(!updated){
-            return ResponseEntity.notFound().build();
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
         User usuarioActualizado = userRepository.findOne(user_id).get(0); 
-        return ResponseEntity.ok(usuarioActualizado);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioActualizado);
     }
 
 
     // borra un usario
     @DeleteMapping("/user/{user_id}")
-    public ResponseEntity<?> deleteUser(@PathVariable long user_id){
+    public ResponseEntity<String> deleteUser(@PathVariable long user_id){
+        // Guardamos antes para porder imprimer que fue eliminado
         List<User> userEontrado = userRepository.findOne(user_id);
 
         boolean deletedUser = userRepository.deleteUser(user_id);
         if(deletedUser){
-            return ResponseEntity.ok(userEontrado.get(0) + "Fue eliminado correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(userEontrado.get(0) + "Fue eliminado correctamente");
         }
-        return ResponseEntity.ok("El usuasrio con la id " + user_id + " no fue eocntrado");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la " + user_id + " no fue encontrado");
     }
     
     

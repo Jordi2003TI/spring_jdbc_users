@@ -72,7 +72,7 @@ public class UserRepository {
         return jdbcTemplate.query(sql, new UserRowMapper(), user_id); // ponemos todos los datos que le vamos pasando por parametros
      } 
 
-     //Actualizamos un usuario todo completo mediante el put
+     //7. Actualizamos un usuario todo completo mediante el put
      public Boolean updateUser(long user_id, User user){
         String sql = "UPDATE users SET nom = ?, descripcion=? ,email = ?, contrasena=? ,dataUpdated = ? WHERE id = ?";
         int lineasAfectadas = jdbcTemplate.update(sql, user.getNom(), user.getDescripcion(), user.getEmail(), user.getContrasena(), Timestamp.valueOf(LocalDateTime.now()), user_id);
