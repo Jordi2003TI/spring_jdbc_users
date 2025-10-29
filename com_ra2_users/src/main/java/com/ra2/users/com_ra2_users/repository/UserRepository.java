@@ -73,26 +73,22 @@ public class UserRepository {
      } 
 
      //7. Actualizamos un usuario todo completo mediante el put
-     public Boolean updateUser(long user_id, User user){
+     public int updateUser(long user_id, User user){
         String sql = "UPDATE users SET nom = ?, descripcion=? ,email = ?, contrasena=? ,dataUpdated = ? WHERE id = ?";
-        int lineasAfectadas = jdbcTemplate.update(sql, user.getNom(), user.getDescripcion(), user.getEmail(), user.getContrasena(), Timestamp.valueOf(LocalDateTime.now()), user_id);
-        return lineasAfectadas > 0;
+        return jdbcTemplate.update(sql, user.getNom(), user.getDescripcion(), user.getEmail(), user.getContrasena(), Timestamp.valueOf(LocalDateTime.now()), user_id);
      }
 
 
     //Actualizamos un usario mediante patch
-    public Boolean updateUserPatch(long user_id, String nombre){
-        if(nombre.length() > 100) return false;
-
+    public int updateUserPatch(long user_id, String nombre){
+        if(nombre.length() > 100) return 0;
         String sql = "UPDATE users SET nom = ?, dataUpdated = ? WHERE id = ?";
-        int lineaAfectada = jdbcTemplate.update(sql,nombre,Timestamp.valueOf(LocalDateTime.now()),user_id);
-        return lineaAfectada > 0;
+        return jdbcTemplate.update(sql,nombre,Timestamp.valueOf(LocalDateTime.now()),user_id);
     }
 
-    public boolean deleteUser(long user_id){
+    public int deleteUser(long user_id){
         String sql = "DELETE FROM users WHERE id=?";
-        int lineaAfectada = jdbcTemplate.update(sql, user_id);
-        return lineaAfectada >0;
+        return jdbcTemplate.update(sql, user_id);
     }
 
 }

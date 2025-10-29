@@ -44,46 +44,26 @@ public class userController {
     }
 
     @GetMapping("user/{user_id}") // la variable tiene que ser igual a la que pasamos
-    public ResponseEntity<String> getOneUser(@PathVariable long user_id){
+    public ResponseEntity<User> getOneUser(@PathVariable long user_id){
         List<User> oneUser = userRepository.findOne(user_id);
         
         if(oneUser == null || oneUser.isEmpty()){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se ha econtrado ningun Usuario con esta id " + user_id);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
          User user = oneUser.get(0);
-         return ResponseEntity.status(HttpStatus.OK).body(
-            "Usuario:\n" +
-            "ID: " + user.getId() + "\n" +
-            "Nom: " + user.getNom() + "\n" +
-            "Descripcion: " + user.getDescripcion() + "\n" +
-            "Email: " + user.getEmail() + "\n" +
-            "Contrasena: " + user.getContrasena() + "\n" +
-            "UltimAcess: " + user.getUltimAcess() + "\n" +
-            "DataCreated: " + user.getDataCreated() + "\n" +
-            "DataUpdated: " + user.getDataUpdate()
-        ); // hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
+         return ResponseEntity.status(HttpStatus.OK).body(user);// hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
     }
 
 
     // actualizamos uno de los usuarios a parti de la id y un User Json
     @PutMapping("user/{user_id}")
-    public ResponseEntity<String> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
-        boolean updateUser = userRepository.updateUser(user_id, user);
-        if(!updateUser){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Usuario no econtrado");
+    public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
+        int updateUser = userRepository.updateUser(user_id, user);
+        if(updateUser == 0){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         User usuarioActualizado = userRepository.findOne(user_id).get(0);
-        return ResponseEntity.status(HttpStatus.OK).body(
-            "Usuario:\n" +
-            "ID: " + usuarioActualizado.getId() + "\n" +
-            "Nom: " + usuarioActualizado.getNom() + "\n" +
-            "Descripcion: " + usuarioActualizado.getDescripcion() + "\n" +
-            "Email: " + usuarioActualizado.getEmail() + "\n" +
-            "Contrasena: " + usuarioActualizado.getContrasena() + "\n" +
-            "UltimAcess: " + usuarioActualizado.getUltimAcess() + "\n" +
-            "DataCreated: " + usuarioActualizado.getDataCreated() + "\n" +
-            "DataUpdated: " + usuarioActualizado.getDataUpdate()
-        );
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioActualizado);
     }
 
     // crear un usuario Hacemos que nos devuelva un Responsitive porque queremos que nos devuelva una respuesta HTTP basicamente devolvemos un estado + un mensaje 
@@ -106,24 +86,14 @@ public class userController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El nombre no puede tener mas de 100 caracteres");
         }
 
-        boolean updated = userRepository.updateUserPatch(user_id, name);
+        int updated = userRepository.updateUserPatch(user_id, name);
 
-        if(!updated){
+        if(updated == 0){
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la id " + user_id + " no se ha econtrado");
         }
 
         User usuarioActualizado = userRepository.findOne(user_id).get(0); 
-        return ResponseEntity.status(HttpStatus.OK).body(
-            "Usuario:\n" +
-            "ID: " + usuarioActualizado.getId() + "\n" +
-            "Nom: " + usuarioActualizado.getNom() + "\n" +
-            "Descripcion: " + usuarioActualizado.getDescripcion() + "\n" +
-            "Email: " + usuarioActualizado.getEmail() + "\n" +
-            "Contrasena: " + usuarioActualizado.getContrasena() + "\n" +
-            "UltimAcess: " + usuarioActualizado.getUltimAcess() + "\n" +
-            "DataCreated: " + usuarioActualizado.getDataCreated() + "\n" +
-            "DataUpdated: " + usuarioActualizado.getDataUpdate()
-        );
+        return ResponseEntity.status(HttpStatus.OK).body("Actualizado correctamente nom" + usuarioActualizado.getNom());
     }
 
 
@@ -133,20 +103,9 @@ public class userController {
         // Guardamos antes para porder imprimer que fue eliminado
         List<User> userEontrado = userRepository.findOne(user_id);
 
-        boolean deletedUser = userRepository.deleteUser(user_id);
-        if(deletedUser){
-            User user = userEontrado.get(0);
-            return ResponseEntity.status(HttpStatus.OK).body(
-            "Usuario ELIMINADO:\n" +
-            "ID: " + user.getId() + "\n" +
-            "Nom: " + user.getNom() + "\n" +
-            "Descripcion: " + user.getDescripcion() + "\n" +
-            "Email: " + user.getEmail() + "\n" +
-            "Contrasena: " + user.getContrasena() + "\n" +
-            "UltimAcess: " + user.getUltimAcess() + "\n" +
-            "DataCreated: " + user.getDataCreated() + "\n" +
-            "DataUpdated: " + user.getDataUpdate()
-        );
+        int deletedUser = userRepository.deleteUser(user_id);
+        if(deletedUser >= 1){
+            return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente " + userEontrado.get(0));
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la " + user_id + " no fue encontrado");
     }
