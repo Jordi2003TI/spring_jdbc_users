@@ -3,6 +3,7 @@ package com.ra2.users.com_ra2_users.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ra2.users.com_ra2_users.Service.userService;
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
 
@@ -28,13 +29,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class userController {
 
     @Autowired
-    UserRepository userRepository;
-
+    userService userServices;
     // Es para poder leer todos los usuarios que tenemos en la base de datos ne caso que no haya ninguno nos devolvera un null
 
         @GetMapping("/user")
         public ResponseEntity<List<User>> getUser() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userServices.getUser();
         if(users.size() == 0){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }else{
@@ -45,31 +45,30 @@ public class userController {
 
     @GetMapping("user/{user_id}") // la variable tiene que ser igual a la que pasamos
     public ResponseEntity<User> getOneUser(@PathVariable long user_id){
-        List<User> oneUser = userRepository.findOne(user_id);
+        User userOne = userServices.getOneUser(user_id);
         
-        if(oneUser == null || oneUser.isEmpty()){
+        if(userOne == null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-         User user = oneUser.get(0);
-         return ResponseEntity.status(HttpStatus.OK).body(user);// hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
+         return ResponseEntity.status(HttpStatus.OK).body(userOne);// hacemos que nos devuleva el primero de la lista para que pueda devolver un tipo User sino daria error ya que estariamos devolviendo un tipo List
     }
 
 
     // actualizamos uno de los usuarios a parti de la id y un User Json
     @PutMapping("user/{user_id}")
     public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
-        int updateUser = userRepository.updateUser(user_id, user);
+        int updateUser = userServices.updateUserPut(user_id, user);
         if(updateUser == 0){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        User usuarioActualizado = userRepository.findOne(user_id).get(0);
+        User usuarioActualizado = userServices.getOneUser(user_id);
         return ResponseEntity.status(HttpStatus.OK).body(usuarioActualizado);
     }
 
     // crear un usuario Hacemos que nos devuelva un Responsitive porque queremos que nos devuelva una respuesta HTTP basicamente devolvemos un estado + un mensaje 
     @PostMapping("/user")
     public ResponseEntity<String> addUser(@RequestBody User user) {
-        int result = userRepository.insertUser(user);
+        int result = userServices.addUser(user);
         
         if(result > 0){
             return ResponseEntity.status(HttpStatus.OK).body("Usuario inserido correctamente " + user.getNom().toString());
@@ -86,13 +85,13 @@ public class userController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El nombre no puede tener mas de 100 caracteres");
         }
 
-        int updated = userRepository.updateUserPatch(user_id, name);
+        int updated = userServices.updateUserPatch(user_id, name);
 
         if(updated == 0){
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la id " + user_id + " no se ha econtrado");
         }
 
-        User usuarioActualizado = userRepository.findOne(user_id).get(0); 
+        User usuarioActualizado = userServices.getOneUser(user_id); 
         return ResponseEntity.status(HttpStatus.OK).body("Actualizado correctamente nom" + usuarioActualizado.getNom());
     }
 
@@ -101,11 +100,11 @@ public class userController {
     @DeleteMapping("/user/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable long user_id){
         // Guardamos antes para porder imprimer que fue eliminado
-        List<User> userEontrado = userRepository.findOne(user_id);
+        User userEontrado = userServices.getOneUser(user_id);
 
-        int deletedUser = userRepository.deleteUser(user_id);
+        int deletedUser = userServices.deleteUser(user_id);
         if(deletedUser >= 1){
-            return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente " + userEontrado.get(0));
+            return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente " + userEontrado);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la " + user_id + " no fue encontrado");
     }
