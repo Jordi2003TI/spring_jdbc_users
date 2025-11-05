@@ -3,11 +3,8 @@ package com.ra2.users.com_ra2_users.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
@@ -46,6 +43,18 @@ public class userService {
     public int deleteUser(long user_id){
         int deletedUser = userRepository.deleteUser(user_id);
         return deletedUser;
+    }
+
+    public String uploadImage(long user_id, MultipartFile image){
+        List<User> user = userRepository.findOne(user_id);
+        User oneUser = user.get(0);
+
+        if(oneUser != null){
+            return"Si se econtro el usuario";
+        }else{
+            return"No existe el usuario";
+        }
+        
     }
 }
 

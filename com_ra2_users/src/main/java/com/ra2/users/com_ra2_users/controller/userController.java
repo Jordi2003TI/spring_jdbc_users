@@ -2,6 +2,7 @@ package com.ra2.users.com_ra2_users.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra2.users.com_ra2_users.Service.userService;
 import com.ra2.users.com_ra2_users.model.User;
@@ -107,6 +108,13 @@ public class userController {
             return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente " + userEontrado);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la " + user_id + " no fue encontrado");
+    }
+     
+    // para poder subir fotos postear digamos mejor 
+    @PostMapping("user/{user_id}/iamge")
+    public String addImage(@PathVariable long user_id, @RequestBody MultipartFile image){
+        String resultado = userServices.uploadImage(user_id, image);
+        return resultado;
     }
     
     
