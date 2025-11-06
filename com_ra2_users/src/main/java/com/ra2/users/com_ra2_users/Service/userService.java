@@ -1,6 +1,8 @@
 package com.ra2.users.com_ra2_users.Service;
 
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,16 +47,35 @@ public class userService {
         return deletedUser;
     }
 
-    public String uploadImage(long user_id, MultipartFile image){
+    public String uploadImage(long user_id, MultipartFile image) throws IOException{
         List<User> user = userRepository.findOne(user_id);
-        User oneUser = user.get(0);
 
-        if(oneUser != null){
-            return"Si se econtro el usuario";
-        }else{
-            return"No existe el usuario";
+        if (user.isEmpty()) {
+            return "No se encontró el usuario";
         }
-        
+
+        //User oneUser = user.get(0);
+
+
+        File directory = new File("/src/main/resources/public");
+        // Sino existe la carpeta la creamos
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+
+        String filename = "user_" + user_id + ".jpg";
+        File file = new File(directory, filename);
+        image.transferTo(file);
+
+        String patRelativo = "images/" + filename;
+
+        int consultaSql = userRepository.uploadImage(user_id, patRelativo);
+
+        if(consultaSql == 0){
+            return "No se ha guardado el path";
+        }
+
+        return patRelativo;
     }
 }
 

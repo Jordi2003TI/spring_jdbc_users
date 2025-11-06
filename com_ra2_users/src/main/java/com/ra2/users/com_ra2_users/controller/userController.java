@@ -8,6 +8,7 @@ import com.ra2.users.com_ra2_users.Service.userService;
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,10 +112,11 @@ public class userController {
     }
      
     // para poder subir fotos postear digamos mejor 
-    @PostMapping("user/{user_id}/iamge")
-    public String addImage(@PathVariable long user_id, @RequestBody MultipartFile image){
+    @PostMapping("user/{user_id}/image")
+    public ResponseEntity<String> addImage(@PathVariable long user_id, @RequestParam MultipartFile image) throws IOException{
         String resultado = userServices.uploadImage(user_id, image);
-        return resultado;
+
+        return ResponseEntity.status(HttpStatus.OK).body(resultado);
     }
     
     

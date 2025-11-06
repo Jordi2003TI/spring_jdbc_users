@@ -91,4 +91,9 @@ public class UserRepository {
         return jdbcTemplate.update(sql, user_id);
     }
 
+    public int uploadImage(long id, String path){
+        String sql = "UPDATE users SET image_Path = ? WHERE id=?";
+        return jdbcTemplate.update(sql, path, id);
+    }
+
 }
