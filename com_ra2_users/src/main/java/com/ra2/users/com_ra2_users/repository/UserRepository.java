@@ -27,6 +27,7 @@ public class UserRepository {
             user.setDescripcion(rs.getString("descripcion"));
             user.setEmail(rs.getString("email"));
             user.setContrasena(rs.getString("contrasena"));
+            user.setImage_Path(rs.getString("pathruta"));
 
             if (rs.getTimestamp("ultimAcces") != null) {
                 user.setUltimAcess(rs.getTimestamp("ultimAcces").toLocalDateTime());
@@ -44,8 +45,8 @@ public class UserRepository {
 
      public int insertUser(User user){
         String sql = """
-                INSERT INTO users (nom, descripcion, email, contrasena, ultimAcces, dataCreated, dataUpdated)
-                VALUES (?,?,?,?,?,?,?);
+                INSERT INTO users (nom, descripcion, email, contrasena, pathruta ,ultimAcces, dataCreated, dataUpdated)
+                VALUES (?,?,?,?,?,?,?,?);
                 """;
                 LocalDateTime now = LocalDateTime.now();
                 Timestamp timestamp = Timestamp.valueOf(now);
@@ -55,6 +56,7 @@ public class UserRepository {
                 user.getDescripcion(),
                 user.getEmail(),
                 user.getContrasena(),
+                user.getImage_Path(),
                 null,              // ultimAcces → null al crear
                 timestamp,         // dataCreated → ahora
                 timestamp
@@ -91,9 +93,9 @@ public class UserRepository {
         return jdbcTemplate.update(sql, user_id);
     }
 
-    public int uploadImage(long id, String path){
-        String sql = "UPDATE users SET image_Path = ? WHERE id=?";
-        return jdbcTemplate.update(sql, path, id);
+    public int uploadImage(long id, String pathruta){
+        String sql = "UPDATE users SET pathruta = ? WHERE id=?";
+        return jdbcTemplate.update(sql, pathruta, id);
     }
 
 }

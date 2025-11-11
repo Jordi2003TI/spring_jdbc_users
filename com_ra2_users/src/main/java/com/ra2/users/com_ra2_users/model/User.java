@@ -8,7 +8,7 @@ public class User {
     private String descripcion;
     private String email;
     private String contrasena;
-    private String image_Path;
+    private String pathruta;
     private LocalDateTime ultimAcess;
     private LocalDateTime dataCreated;
     private LocalDateTime dataUpdate;
@@ -16,14 +16,14 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String nom, String descripcion, String email, String contrasena, String image_Path ,LocalDateTime ultimAcess,
+    public User(Long id, String nom, String descripcion, String email, String contrasena, String pathruta ,LocalDateTime ultimAcess,
             LocalDateTime dataCreated, LocalDateTime dataUpdate) {
         this.id = id;
         this.nom = nom;
         this.descripcion = descripcion;
         this.email = email;
         this.contrasena = contrasena;
-        this.image_Path = image_Path;
+        this.pathruta = pathruta;
         this.ultimAcess = ultimAcess;
         this.dataCreated = dataCreated;
         this.dataUpdate = dataUpdate;
@@ -77,17 +77,17 @@ public class User {
         this.dataUpdate = dataUpdate;
     }
     public String getImage_Path() {
-        return image_Path;
+        return pathruta;
     }
 
-    public void setImage_Path(String image_Path) {
-        this.image_Path = image_Path;
+    public void setImage_Path(String pathruta) {
+        this.pathruta = pathruta;
     }
 
     @Override
     public String toString() {
         return "User [id=" + id + ", nom=" + nom + ", descripcion=" + descripcion + ", email=" + email + ", contrasena="
-                + contrasena + ", image_Path=" + image_Path + ", ultimAcess=" + ultimAcess + ", dataCreated="
+                + contrasena + ", pathruta=" + pathruta + ", ultimAcess=" + ultimAcess + ", dataCreated="
                 + dataCreated + ", dataUpdate=" + dataUpdate + "]";
     }
 
