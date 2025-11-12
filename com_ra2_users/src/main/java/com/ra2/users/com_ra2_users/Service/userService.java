@@ -57,23 +57,22 @@ public class userService {
         if (user.isEmpty()) {
             return null;
         }
-
+        // creamos el path donde queremos que cree la carpeta 
         Path imageDir = Paths.get("src/main/resources/public/images");
-
+        // Comprobamos que exista 
         if (!Files.exists(imageDir)) {
             Files.createDirectories(imageDir);
         }
-
+        // Creamos un nombre distinto para cada imagen 
         String filename = "user_" + user_id + "_" + imageFile.getOriginalFilename();
         Path destination = imageDir.resolve(filename);
-
+        // hacemos el nio2
         try (InputStream inputStream = imageFile.getInputStream()) {
             Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
         }
-
+        // creamos una ruta relativa para guardar en la base de datos
         String relativePath = "images/" + filename;
-        int i = userRepository.uploadImage(user_id, relativePath);
-        System.out.println(i);
+        userRepository.uploadImage(user_id, relativePath);
         return "/public/" + relativePath;
     }
 
