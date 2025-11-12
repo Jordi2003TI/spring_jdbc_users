@@ -120,6 +120,13 @@ public class userController {
         String resultado = userServices.uploadImage(user_id, image);
         return ResponseEntity.status(HttpStatus.OK).body(resultado);
     }
+    // Subimos un csv para importar a la base de datos
+    @PostMapping("user/csv")
+    public ResponseEntity<String> addCsv(@RequestParam MultipartFile csv)throws IOException {
+        String resultado = userServices.uploadCsv(csv);
+        return ResponseEntity.status(HttpStatus.OK).body(resultado);
+    }
+    
     
     
 }

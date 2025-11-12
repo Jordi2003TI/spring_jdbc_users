@@ -28,6 +28,18 @@ public class User {
         this.dataCreated = dataCreated;
         this.dataUpdate = dataUpdate;
     }
+
+    public User(String nom, String descripcion, String email, String contrasena){
+        this.nom = nom;
+        this.descripcion = descripcion;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.pathruta = null;
+        this.ultimAcess = null;
+        this.dataCreated = null;
+        this.dataUpdate = null;
+
+    }
     public Long getId() {
         return id;
     }

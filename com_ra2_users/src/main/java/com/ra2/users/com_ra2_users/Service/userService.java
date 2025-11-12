@@ -1,9 +1,11 @@
 package com.ra2.users.com_ra2_users.Service;
 
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -59,7 +61,7 @@ public class userService {
         }
         try{
         // creamos el path donde queremos que cree la carpeta 
-        Path imageDir = Paths.get("src/main/resources/public/images");
+        Path imageDir = Paths.get("private/images");
         // Comprobamos que exista 
         if (!Files.exists(imageDir)) {
             Files.createDirectories(imageDir);
@@ -81,6 +83,37 @@ public class userService {
     }
         return null;
     }
+
+    public String uploadCsv (MultipartFile csv) throws IOException{
+        
+        int inserciones = 0;
+
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(csv.getInputStream()))){
+            // sacamos la capcelera
+            String linea = br.readLine();
+            
+            if(linea == null){
+                return null;
+            }
+            
+            while((linea = br.readLine()) != null){
+                String[] elemento = linea.split(",");
+                if(elemento.length > 4)continue;
+
+                User user = new User(elemento[0], elemento[1], elemento[2], elemento[3]);
+                int confirmacion = userRepository.insertUser(user);
+                if(confirmacion == 1){
+                    inserciones++;
+                }
+                linea = br.readLine();
+
+            }
+        }
+
+        return "Inserciones hechas: " + inserciones;
+    }
+
+    // try(BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream())))
 
 }
 
