@@ -116,7 +116,7 @@ public class userController {
      
     // para poder subir fotos postear digamos mejor 
     @PostMapping(value = "user/{user_id}/image")
-    public ResponseEntity<String> addImage(@PathVariable long user_id, @RequestParam() MultipartFile image) throws IOException {
+    public ResponseEntity<String> addImage(@PathVariable long user_id, @RequestParam MultipartFile image) throws IOException {
         String resultado = userServices.uploadImage(user_id, image);
         return ResponseEntity.status(HttpStatus.OK).body(resultado);
     }

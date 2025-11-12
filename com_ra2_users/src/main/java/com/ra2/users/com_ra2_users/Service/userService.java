@@ -57,6 +57,7 @@ public class userService {
         if (user.isEmpty()) {
             return null;
         }
+        try{
         // creamos el path donde queremos que cree la carpeta 
         Path imageDir = Paths.get("src/main/resources/public/images");
         // Comprobamos que exista 
@@ -66,14 +67,19 @@ public class userService {
         // Creamos un nombre distinto para cada imagen 
         String filename = "user_" + user_id + "_" + imageFile.getOriginalFilename();
         Path destination = imageDir.resolve(filename);
-        // hacemos el nio2
-        try (InputStream inputStream = imageFile.getInputStream()) {
-            Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
-        }
+        // hacemos el nio2 el inputstream es para recuperar el binario de la imagen 
+        InputStream inputStream = imageFile.getInputStream();
+        
+        Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
+        
         // creamos una ruta relativa para guardar en la base de datos
         String relativePath = "images/" + filename;
         userRepository.uploadImage(user_id, relativePath);
         return "/public/" + relativePath;
+    } catch(Exception e){
+        e.printStackTrace();
+    }
+        return null;
     }
 
 }
