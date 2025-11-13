@@ -100,12 +100,11 @@ public class userService {
                 String[] elemento = linea.split(",");
                 if(elemento.length > 4)continue;
 
-                User user = new User(elemento[0], elemento[1], elemento[2], elemento[3]);
+                User user = new User(elemento[0].trim(), elemento[1].trim(), elemento[2].trim(), elemento[3].trim());
                 int confirmacion = userRepository.insertUser(user);
                 if(confirmacion == 1){
                     inserciones++;
                 }
-                linea = br.readLine();
 
             }
         }
