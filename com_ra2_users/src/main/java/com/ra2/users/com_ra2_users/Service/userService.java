@@ -1,5 +1,6 @@
 package com.ra2.users.com_ra2_users.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,6 +88,7 @@ public class userService {
     }
 
     public String uploadCsv (MultipartFile csv) throws IOException{
+        List<String> noAceptados = new ArrayList<>();
         
         int inserciones = 0;
 
@@ -98,9 +102,12 @@ public class userService {
             
             while((linea = br.readLine()) != null){
                 String[] elemento = linea.split(",");
-                if(elemento.length > 4)continue;
+                if(elemento.length != 4){
+                    noAceptados.add(elemento[0]);
+                    continue;
+                }
 
-                User user = new User(elemento[0].trim(), elemento[1].trim(), elemento[2].trim(), elemento[3].trim());
+                User user = new User(elemento[0].trim(), elemento[1].trim(), elemento[2].trim(), elemento[3].trim(), LocalDateTime.now(), LocalDateTime.now());
                 int confirmacion = userRepository.insertUser(user);
                 if(confirmacion == 1){
                     inserciones++;
@@ -108,8 +115,9 @@ public class userService {
 
             }
         }
+        System.out.println(noAceptados);
 
-        return "Inserciones hechas: " + inserciones;
+        return "Inserciones hechas: " + inserciones + " Y no hechas " + noAceptados.size();
     }
 
     // try(BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream())))

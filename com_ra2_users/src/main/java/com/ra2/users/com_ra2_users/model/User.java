@@ -40,6 +40,17 @@ public class User {
         this.dataUpdate = null;
 
     }
+    public User(String nom, String descripcion, String email, String contrasena, LocalDateTime creado, LocalDateTime update){
+        this.nom = nom;
+        this.descripcion = descripcion;
+        this.email = email;
+        this.contrasena = contrasena;
+        this.pathruta = null;
+        this.ultimAcess = null;
+        this.dataCreated = null;
+        this.dataUpdate = null;
+
+    }
     public Long getId() {
         return id;
     }
