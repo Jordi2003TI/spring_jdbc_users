@@ -140,6 +140,6 @@ public class userController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Usuarios agregados correctamente " + resultado);
         }
     }
-    
+     
     
 }
