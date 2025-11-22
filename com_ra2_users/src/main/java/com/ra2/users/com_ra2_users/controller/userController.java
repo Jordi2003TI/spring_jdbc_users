@@ -8,6 +8,8 @@ import com.ra2.users.com_ra2_users.Service.userService;
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
 
+import jakarta.websocket.server.PathParam;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -127,6 +129,17 @@ public class userController {
         return ResponseEntity.status(HttpStatus.OK).body(resultado);
     }
     
+    
+    @PostMapping("users/upload-json")
+    public ResponseEntity<String> PostJson(@RequestParam MultipartFile json) {
+        int resultado = userServices.PostJson(json);
+
+        if(resultado == 0){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se completo la operacion");
+        }else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Usuarios agregados correctamente " + resultado);
+        }
+    }
     
     
 }

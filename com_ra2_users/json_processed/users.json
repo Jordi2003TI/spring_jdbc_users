@@ -1,0 +1,26 @@
+{
+  "data": {
+    "count": 3,
+    "control": "OK",
+    "users": [
+      {
+        "name": "Jordi",
+        "description": "Es el mas listo" ,
+        "email": "jordi123@gmail.com",
+        "password": "123123"
+      },
+      {
+        "name": "Carol",
+        "description": "Es la mas lista de classe",
+        "email": "carol123123@gmail.com",
+        "password": "321321"
+      },
+      {
+        "name": "Andreu",
+        "description": "Es un pelotudo",
+        "email": "andreu@gmail.com",
+        "password": "222222"
+      }
+    ]
+  }
+}

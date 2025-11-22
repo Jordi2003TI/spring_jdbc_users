@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
 
@@ -26,6 +28,9 @@ public class userService {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ObjectMapper mapper;
 
     public List<User> getUser(){
         List<User> users = userRepository.findAll();
@@ -118,6 +123,54 @@ public class userService {
         System.out.println(noAceptados);
 
         return "Inserciones hechas: " + inserciones + " Y no hechas " + noAceptados.size();
+    }
+    // Para crear ususarios a partir de un json
+    public int PostJson(MultipartFile json){
+        int contadorInsertados = 0;
+        try{ // Siempre que trabajemos con un object de mapper tenemos que ponerlo dentro de un try catch
+            JsonNode arrel = mapper.readTree(json.getInputStream());
+            JsonNode data = arrel.path("data");
+            int count = data.path("count").asInt();
+            String control = data.path("control").asText();
+            JsonNode users = data.path("users");
+            // Comprobamos que tengamos users
+            if(users == null || !users.isArray()){
+                return 0;
+            }
+
+            for(JsonNode user : users){
+                // Cogemos los nombres de los usuarios
+                String name = user.path("name").asText();
+                // Cogemos las descripciones
+                String description = user.path("description").asText();
+                // Cogemos el email
+                String email = user.path("email").asText();
+                // Cogemos las passwords
+                String password = user.path("password").asText();
+
+                User userSave = new User(name, description, email, password, LocalDateTime.now(), LocalDateTime.now());
+                int insertados = userRepository.insertUser(userSave);
+                if(insertados == 1){
+                    contadorInsertados++;
+                }
+
+                // Creamos o guardamos la carpeta de destino 
+                Path carpeta = Paths.get("json_processed");
+                if(!Files.exists(carpeta)){
+                    Files.createDirectories(carpeta);
+                }
+
+                // Guardamos el destino
+                Path lugarDestino = carpeta.resolve(json.getOriginalFilename());
+                Files.copy(json.getInputStream(), lugarDestino, StandardCopyOption.REPLACE_EXISTING);  
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
+        return contadorInsertados;
+        
     }
 
     // try(BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream())))
