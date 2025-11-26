@@ -40,7 +40,7 @@ public class userController {
     // Es para poder leer todos los usuarios que tenemos en la base de datos ne caso que no haya ninguno nos devolvera un null
 
         @GetMapping("/user")
-        public ResponseEntity<List<User>> getUser() {
+        public ResponseEntity<List<User>> getUser() throws IOException {
         List<User> users = userServices.getUser();
         if(users.size() == 0){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -51,7 +51,7 @@ public class userController {
     }
 
     @GetMapping("user/{user_id}") // la variable tiene que ser igual a la que pasamos
-    public ResponseEntity<User> getOneUser(@PathVariable long user_id){
+    public ResponseEntity<User> getOneUser(@PathVariable long user_id) throws IOException{
         User userOne = userServices.getOneUser(user_id);
         
         if(userOne == null){
@@ -63,7 +63,7 @@ public class userController {
 
     // actualizamos uno de los usuarios a parti de la id y un User Json
     @PutMapping("user/{user_id}")
-    public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) {
+    public ResponseEntity<User> updateUserPut(@PathVariable long user_id, @RequestBody User user) throws IOException {
         int updateUser = userServices.updateUserPut(user_id, user);
         if(updateUser == 0){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -86,7 +86,7 @@ public class userController {
     }
     // modificar un usario pero de 1 solo parametro 
     @PatchMapping("user/{user_id}/name")
-    public ResponseEntity<String> updateUserPatch(@PathVariable() long user_id,@RequestParam() String name) {
+    public ResponseEntity<String> updateUserPatch(@PathVariable() long user_id,@RequestParam() String name) throws IOException {
 
         if(name.length() > 100){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El nombre no puede tener mas de 100 caracteres");
@@ -105,7 +105,7 @@ public class userController {
 
     // borra un usario
     @DeleteMapping("/user/{user_id}")
-    public ResponseEntity<String> deleteUser(@PathVariable long user_id){
+    public ResponseEntity<String> deleteUser(@PathVariable long user_id) throws IOException{
         // Guardamos antes para porder imprimer que fue eliminado
         User userEontrado = userServices.getOneUser(user_id);
 

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ra2.users.com_ra2_users.Login.CustomerLogin;
 import com.ra2.users.com_ra2_users.model.User;
 import com.ra2.users.com_ra2_users.repository.UserRepository;
 
@@ -32,13 +33,24 @@ public class userService {
     @Autowired
     ObjectMapper mapper;
 
-    public List<User> getUser(){
+    @Autowired
+    CustomerLogin customerLogin;
+
+    public List<User> getUser() throws IOException{
+        
         List<User> users = userRepository.findAll();
         return users;
     }
 
-    public User getOneUser(long user_id){
+    public User getOneUser(long user_id) throws IOException{
+        
         List<User> oneUser = userRepository.findOne(user_id);
+
+        if(oneUser.get(0) != null){
+            customerLogin.info("userService", "getOneUser", "Consultando l'estudiant con id " + user_id);
+        }else{
+            customerLogin.error("userService", "getOneUser", "L'estudiant amb la id " + user_id + " no existeix");
+        }
         return oneUser.get(0);
     }
     
@@ -135,7 +147,7 @@ public class userService {
             JsonNode users = data.path("users");
             // Comprobamos que tengamos users
             if(users == null || !users.isArray()){
-                return 0;
+                return 0; 
             }
 
             for(JsonNode user : users){

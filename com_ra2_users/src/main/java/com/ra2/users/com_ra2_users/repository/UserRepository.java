@@ -11,12 +11,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.ra2.users.com_ra2_users.Login.CustomerLogin;
 import com.ra2.users.com_ra2_users.model.User;
 
 @Repository
 public class UserRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    
 
     private static final class UserRowMapper implements RowMapper<User>{
         @Override
@@ -80,7 +83,7 @@ public class UserRepository {
         return jdbcTemplate.update(sql, user.getNom(), user.getDescripcion(), user.getEmail(), user.getContrasena(), Timestamp.valueOf(LocalDateTime.now()), user_id);
      }
 
-
+  
     //Actualizamos un usario mediante patch
     public int updateUserPatch(long user_id, String nombre){
         if(nombre.length() > 100) return 0;
