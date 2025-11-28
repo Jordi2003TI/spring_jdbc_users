@@ -53,6 +53,7 @@ public class UserRepository {
                 """;
                 LocalDateTime now = LocalDateTime.now();
                 Timestamp timestamp = Timestamp.valueOf(now);
+
                 // Para bsucar si hay un que se repita que devuelva un zero
                 String sql2 = "Select * FROM users WHERE email = ?";
                 List<User> dupliacado = jdbcTemplate.query(sql2, new UserRowMapper() ,user.getEmail());
@@ -61,7 +62,7 @@ public class UserRepository {
                     // si encuentra uno devolvemos 0
                     return 0;
                 }
-
+                
                 return jdbcTemplate.update(sql,
                 user.getNom(),
                 user.getDescripcion(),

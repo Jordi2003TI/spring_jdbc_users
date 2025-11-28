@@ -2,6 +2,8 @@ package com.ra2.users.com_ra2_users.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.jdbc.core.RowCallbackHandler;
+
 public class User {
     private Long id;
     private String nom;

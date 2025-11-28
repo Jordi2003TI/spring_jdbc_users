@@ -52,7 +52,7 @@ public class userController {
 
     @GetMapping("user/{user_id}") // la variable tiene que ser igual a la que pasamos
     public ResponseEntity<User> getOneUser(@PathVariable long user_id) throws IOException{
-        User userOne = userServices.getOneUser(user_id);
+        User userOne = userServices.getOneUser(user_id, true);
         
         if(userOne == null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -68,7 +68,7 @@ public class userController {
         if(updateUser == 0){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        User usuarioActualizado = userServices.getOneUser(user_id);
+        User usuarioActualizado = userServices.getOneUser(user_id, false);
         return ResponseEntity.status(HttpStatus.OK).body(usuarioActualizado);
     }
 
@@ -92,13 +92,13 @@ public class userController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El nombre no puede tener mas de 100 caracteres");
         }
 
-        int updated = userServices.updateUserPatch(user_id, name);
+        int updated = userServices.updateUserPatch(user_id, name, true);
 
         if(updated == 0){
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("El usuario con la id " + user_id + " no se ha econtrado");
         }
 
-        User usuarioActualizado = userServices.getOneUser(user_id); 
+        User usuarioActualizado = userServices.getOneUser(user_id, false); 
         return ResponseEntity.status(HttpStatus.OK).body("Actualizado correctamente nom" + usuarioActualizado.getNom());
     }
 
@@ -107,9 +107,9 @@ public class userController {
     @DeleteMapping("/user/{user_id}")
     public ResponseEntity<String> deleteUser(@PathVariable long user_id) throws IOException{
         // Guardamos antes para porder imprimer que fue eliminado
-        User userEontrado = userServices.getOneUser(user_id);
+        User userEontrado = userServices.getOneUser(user_id, false);
 
-        int deletedUser = userServices.deleteUser(user_id);
+        int deletedUser = userServices.deleteUser(user_id, true);
         if(deletedUser >= 1){
             return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente " + userEontrado);
         }

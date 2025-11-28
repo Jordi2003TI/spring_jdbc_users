@@ -12,3 +12,52 @@
 [2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
 [2025-11-28] INFO - userServide - addUser - Creant un estudiant
 [2025-11-28] ERROR - userServide - addUser - L'estudiant amb nom: Andreu no s'ha creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] ERROR - userServide - addUser - L'estudiant amb nom: Andreu no s'ha creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] ERROR - userServide - addUser - L'estudiant amb nom: Andreu no s'ha creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - getOneUser - Consultando l'estudiant con id 1
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - getOneUser - Consultando l'estudiant con id 1
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - getOneUser - Consultando l'estudiant con id 1
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUser - Estudiant modficat correctament
+[2025-11-28] INFO - userService - updateUser - Modificant l'estudiant amb id: 7
+[2025-11-28] ERROR - userService - updateUser - L'estudiant amb id: 7 no existeix
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userService - updateUserPatch - Modificant l'estudiant amb id: 1
+[2025-11-28] INFO - userService - updateUserPatch - Estudiant modficat correctament
+[2025-11-28] INFO - userService - updateUserPatch - Modificant l'estudiant amb id: 2
+[2025-11-28] ERROR - userService - updateUserPatch - L'estudiant amb id: 2 no existeix
+[2025-11-28] INFO - userServide - addUser - Creant un user
+[2025-11-28] INFO - userServide - addUser - User creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un user
+[2025-11-28] INFO - userServide - addUser - User creat correctament
+[2025-11-28] INFO - userService - deleteUser - Borrant user amb id: 1
+[2025-11-28] INFO - userService - deleteUser - El user amb id: 1 s'ha borrat correctament
+[2025-11-28] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
+[2025-11-28] INFO - userService - uploadCsv - S'han guardat correctament 4 i hsn donat error 2 registres
