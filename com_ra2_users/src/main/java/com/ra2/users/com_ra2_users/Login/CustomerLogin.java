@@ -28,12 +28,15 @@ public class CustomerLogin {
 
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
-        Files.createDirectory(Paths.get(logDirectory));
+        if(!Files.exists(Paths.get(logDirectory))){
+            Files.createDirectories(Paths.get(logDirectory));
+        }
 
         Path path = Paths.get(logDirectory+"aplicacio-"+year+"-"+mes+"-"+day+".log");
 
         try(var writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.APPEND)){
             writer.write("[" + fechaHoy + "] ERROR - " + clase + " - " + metodo + " - " + resultado);
+            writer.newLine();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -50,12 +53,15 @@ public class CustomerLogin {
 
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
-        Files.createDirectories(Paths.get(logDirectory));
+        if(!Files.exists(Paths.get(logDirectory))){
+            Files.createDirectories(Paths.get(logDirectory));
+        }
 
         Path path = Paths.get(logDirectory+"aplicacio-"+year+"-"+mes+"-"+day+".log");
 
         try(var writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.APPEND)){
             writer.write("[" + fechaHoy + "] INFO - " + clase + " - " + metodo + " - " + resultado);
+            writer.newLine();
         }catch(Exception e){
             e.printStackTrace();
         }

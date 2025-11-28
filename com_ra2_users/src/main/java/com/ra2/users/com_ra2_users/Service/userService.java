@@ -46,10 +46,11 @@ public class userService {
         
         List<User> oneUser = userRepository.findOne(user_id);
 
-        if(oneUser.get(0) != null){
+        if(!oneUser.isEmpty()){
             customerLogin.info("userService", "getOneUser", "Consultando l'estudiant con id " + user_id);
         }else{
             customerLogin.error("userService", "getOneUser", "L'estudiant amb la id " + user_id + " no existeix");
+            return null;
         }
         return oneUser.get(0);
     }
