@@ -61,3 +61,10 @@
 [2025-11-28] INFO - userService - deleteUser - El user amb id: 1 s'ha borrat correctament
 [2025-11-28] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
 [2025-11-28] INFO - userService - uploadCsv - S'han guardat correctament 4 i hsn donat error 2 registres
+[2025-11-28] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
+[2025-11-28] INFO - userService - uploadCsv - S'han guardat correctament 4 i hsn donat error 2 registres
+[2025-11-28] INFO - userService - getOneUser - Consultando user con id 1
+[2025-11-28] INFO - userService - uploadImage - Afegint la imatge image per el user con la id: 1
+[2025-11-28] INFO - userService - uploadImage - La imatge s'ha guardat correctament. El path és: /private/images/user_1_Loro.jpg
+[2025-11-28] INFO - userService - uploadImage - Afegint la imatge image per el user con la id: 7
+[2025-11-28] INFO - userService - uploadImage - User amb id 7 no existeix

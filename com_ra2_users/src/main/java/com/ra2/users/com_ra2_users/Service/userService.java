@@ -114,7 +114,9 @@ public class userService {
 
      public String uploadImage(long user_id, MultipartFile imageFile) throws IOException {
         List<User> user = userRepository.findOne(user_id);
+        customerLogin.info("userService", "uploadImage", "Afegint la imatge " + imageFile.getName() + " per el user con la id: " + user_id);
         if (user.isEmpty()) {
+            customerLogin.error("userService", "uploadImage", "User amb id " + user_id + " no existeix");
             return null;
         }
         try{
@@ -135,7 +137,9 @@ public class userService {
             // creamos una ruta relativa para guardar en la base de datos
             String relativePath = "images/" + filename;
             userRepository.uploadImage(user_id, relativePath);
-            return "/public/" + relativePath;
+
+            customerLogin.info("userService", "uploadImage", "La imatge s'ha guardat correctament. El path és: /private/" + relativePath);
+            return "/private/" + relativePath;
         } catch(Exception e){
             e.printStackTrace();
      }
@@ -171,7 +175,7 @@ public class userService {
                 contarLinea++;
             }
         }catch(Exception e){
-            customerLogin.error("userService", "uploadCsv", "Error en la linea " + contarLinea + " del fitxer.  Missatge d'error: ");
+            customerLogin.error("userService", "uploadCsv", "Error en la linea " + contarLinea + " del fitxer.  Missatge d'error: " + e);
         }
         customerLogin.info("userService", "uploadCsv", "S'han guardat correctament " + inserciones + " i hsn donat error " + noAceptados.size() + " registres");
 
