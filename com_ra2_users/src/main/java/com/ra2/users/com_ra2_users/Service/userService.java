@@ -60,8 +60,15 @@ public class userService {
         return updateUser;
     }
 
-    public int addUser(User user) {
+    public int addUser(User user) throws IOException {
         int result = userRepository.insertUser(user);
+        customerLogin.info("userServide", "addUser", "Creant un estudiant");
+        if(result == 1){
+            customerLogin.info("userServide", "addUser", "Estudiant creat correctament");
+        }else{
+            customerLogin.error("userServide", "addUser", "L'estudiant amb nom: " + user.getNom() + " no s'ha creat correctament");
+        }
+
         return result;
     }
 

@@ -4,3 +4,11 @@
 [2025-11-28] ERROR - userService - getOneUser - L'estudiant amb la id 1 no existeix
 [2025-11-28] INFO - userService - getOneUser - Consultando l'estudiant con id 1
 [2025-11-28] INFO - userService - getOneUser - Consultando l'estudiant con id 3
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] INFO - userServide - addUser - Estudiant creat correctament
+[2025-11-28] INFO - userServide - addUser - Creant un estudiant
+[2025-11-28] ERROR - userServide - addUser - L'estudiant amb nom: Andreu no s'ha creat correctament

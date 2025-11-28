@@ -74,7 +74,7 @@ public class userController {
 
     // crear un usuario Hacemos que nos devuelva un Responsitive porque queremos que nos devuelva una respuesta HTTP basicamente devolvemos un estado + un mensaje 
     @PostMapping("/user")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
+    public ResponseEntity<String> addUser(@RequestBody User user) throws IOException {
         int result = userServices.addUser(user);
         
         if(result > 0){
