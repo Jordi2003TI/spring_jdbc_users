@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,12 @@ public class CustomerLogin {
         int mes = hoy.getMonthValue();
         int day = hoy.getDayOfMonth();
 
+        LocalTime ahora = LocalTime.now();
+
+        int hora = ahora.getHour();
+        int minutos = ahora.getMinute();
+        int segundos = ahora.getSecond();
+
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
         if(!Files.exists(Paths.get(logDirectory))){
@@ -35,7 +42,7 @@ public class CustomerLogin {
         Path path = Paths.get(logDirectory+"aplicacio-"+year+"-"+mes+"-"+day+".log");
 
         try(var writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.APPEND)){
-            writer.write("[" + fechaHoy + "] ERROR - " + clase + " - " + metodo + " - " + resultado);
+            writer.write("[" + fechaHoy +  " " + ahora.getHour() + ":" + ahora.getMinute() + ":" +  ahora.getSecond() + "] ERROR - " + clase + " - " + metodo + " - " + resultado);
             writer.newLine();
         }catch(Exception e){
             e.printStackTrace();
@@ -51,6 +58,11 @@ public class CustomerLogin {
         int mes = hoy.getMonthValue();
         int day = hoy.getDayOfMonth();
 
+        LocalTime ahora = LocalTime.now();
+
+        int minutos = ahora.getMinute();
+        int segundos = ahora.getSecond();
+
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
         if(!Files.exists(Paths.get(logDirectory))){
@@ -60,7 +72,7 @@ public class CustomerLogin {
         Path path = Paths.get(logDirectory+"aplicacio-"+year+"-"+mes+"-"+day+".log");
 
         try(var writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.APPEND)){
-            writer.write("[" + fechaHoy + "] INFO - " + clase + " - " + metodo + " - " + resultado);
+            writer.write("[" + fechaHoy +  " " + ahora.getHour() + ":" + ahora.getMinute() + ":" +  ahora.getSecond() + "] INFO - " + clase + " - " + metodo + " - " + resultado);
             writer.newLine();
         }catch(Exception e){
             e.printStackTrace();
