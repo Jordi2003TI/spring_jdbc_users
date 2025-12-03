@@ -1,0 +1,43 @@
+[2025-12-3 18:49:31] ERROR - userService - getOneUser - User amb la id 1 no existeix Missatge d'<500 INTERNAL_SERVER_ERROR Internal Server Error,Error intern del servidor,[]>
+[2025-12-3 18:49:56] ERROR - userService - getOneUser - User amb la id 1 no existeix Missatge d'<500 INTERNAL_SERVER_ERROR Internal Server Error,Error intern del servidor,[]>
+[2025-12-3 18:50:27] INFO - userServide - addUser - Creant un user
+[2025-12-3 18:50:27] INFO - userServide - addUser - User creat correctament
+[2025-12-3 18:50:36] INFO - userServide - addUser - Creant un user
+[2025-12-3 18:50:36] INFO - userServide - addUser - User creat correctament
+[2025-12-3 18:50:51] INFO - userService - getOneUser - Consultando user con id 1
+[2025-12-3 18:50:55] INFO - userService - getOneUser - Consultando user con id 2
+[2025-12-3 18:55:11] INFO - userServide - addUser - Creant un user
+[2025-12-3 18:55:11] ERROR - userServide - addUser - User amb nom: Andreu no s'ha creat correctament
+[2025-12-3 18:55:22] INFO - userServide - addUser - Creant un user
+[2025-12-3 18:55:22] ERROR - userServide - addUser - User amb nom: Andreu no s'ha creat correctament
+[2025-12-3 18:55:35] INFO - userService - getOneUser - Consultando user con id 1
+[2025-12-3 18:55:41] ERROR - userService - getOneUser - User amb la id 6 no existeix Missatge d'<500 INTERNAL_SERVER_ERROR Internal Server Error,Error intern del servidor,[]>
+[2025-12-3 18:56:12] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
+[2025-12-3 18:56:12] INFO - userService - uploadCsv - S'han guardat correctament 3 i hsn donat error 0 registres
+[2025-12-3 19:2:30] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:2:31] INFO - userServide - addUser - User creat correctament
+[2025-12-3 19:2:36] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:2:36] INFO - userServide - addUser - User creat correctament
+[2025-12-3 19:2:47] INFO - userService - getOneUser - Consultando user con id 1
+[2025-12-3 19:2:53] ERROR - userService - getOneUser - User amb la id 9 no existeix Missatge d'<500 INTERNAL_SERVER_ERROR Internal Server Error,Error intern del servidor,[]>
+[2025-12-3 19:5:9] INFO - userService - updateUser - Modificant user amb id: 1
+[2025-12-3 19:5:9] INFO - userService - updateUser - User modficat correctament
+[2025-12-3 19:5:57] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:5:57] ERROR - userServide - addUser - User amb nom: Andreu Merino no s'ha creat correctament
+[2025-12-3 19:6:9] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:6:9] ERROR - userServide - addUser - User amb nom: Andreu Merino no s'ha creat correctament
+[2025-12-3 19:6:26] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:6:26] INFO - userServide - addUser - User creat correctament
+[2025-12-3 19:6:36] INFO - userServide - addUser - Creant un user
+[2025-12-3 19:6:36] INFO - userServide - addUser - User creat correctament
+[2025-12-3 19:6:43] INFO - userService - getOneUser - Consultando user con id 1
+[2025-12-3 19:6:50] ERROR - userService - getOneUser - User amb la id 99 no existeix Missatge d'<500 INTERNAL_SERVER_ERROR Internal Server Error,Error intern del servidor,[]>
+[2025-12-3 19:7:6] INFO - userService - updateUser - Modificant user amb id: 1
+[2025-12-3 19:7:6] INFO - userService - updateUser - User modficat correctament
+[2025-12-3 19:7:24] INFO - userService - updateUserPatch - Modificant user amb id: 1
+[2025-12-3 19:7:24] INFO - userService - updateUserPatch - User modficat correctament
+[2025-12-3 19:7:35] INFO - userService - deleteUser - Borrant user amb id: 1
+[2025-12-3 19:7:35] INFO - userService - deleteUser - El user amb id: 1 s'ha borrat correctament
+[2025-12-3 19:7:42] INFO - userService - getOneUser - Consultando user con id 2
+[2025-12-3 19:8:14] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
+[2025-12-3 19:8:14] INFO - userService - uploadCsv - S'han guardat correctament 4 i hsn donat error 2 registres

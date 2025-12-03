@@ -29,10 +29,6 @@ public class CustomerLogin {
 
         LocalTime ahora = LocalTime.now();
 
-        int hora = ahora.getHour();
-        int minutos = ahora.getMinute();
-        int segundos = ahora.getSecond();
-
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
         if(!Files.exists(Paths.get(logDirectory))){
@@ -59,9 +55,6 @@ public class CustomerLogin {
         int day = hoy.getDayOfMonth();
 
         LocalTime ahora = LocalTime.now();
-
-        int minutos = ahora.getMinute();
-        int segundos = ahora.getSecond();
 
         String fechaHoy = "" + year + "-" + mes + "-" + day;
 
