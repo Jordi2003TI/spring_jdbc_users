@@ -182,8 +182,10 @@ public class userService {
         return "Inserciones hechas: " + inserciones + " Y no hechas " + noAceptados.size();
     }
     // Para crear ususarios a partir de un json
-    public int PostJson(MultipartFile json){
+    public int PostJson(MultipartFile json) throws IOException{
         int contadorInsertados = 0;
+        int contadorErrores = 0;
+        int lineas = 0;
         try{ // Siempre que trabajemos con un object de mapper tenemos que ponerlo dentro de un try catch
             JsonNode arrel = mapper.readTree(json.getInputStream());
             JsonNode data = arrel.path("data");
@@ -196,6 +198,16 @@ public class userService {
             }
 
             for(JsonNode user : users){
+                // Creamos o guardamos la carpeta de destino 
+                Path carpeta = Paths.get("json_processed");
+                if(!Files.exists(carpeta)){
+                    Files.createDirectories(carpeta);
+                }
+
+                // Guardamos el destino
+                Path lugarDestino = carpeta.resolve(json.getOriginalFilename());
+                Files.copy(json.getInputStream(), lugarDestino, StandardCopyOption.REPLACE_EXISTING);
+                lineas++;
                 // Cogemos los nombres de los usuarios
                 String name = user.path("name").asText();
                 // Cogemos las descripciones
@@ -205,27 +217,21 @@ public class userService {
                 // Cogemos las passwords
                 String password = user.path("password").asText();
 
+                customerLogin.info("userService", "PostJson", "Carregant la informacio del fitxer " + json.getName());
                 User userSave = new User(name, description, email, password, LocalDateTime.now(), LocalDateTime.now());
                 int insertados = userRepository.insertUser(userSave);
                 if(insertados == 1){
                     contadorInsertados++;
                 }
-
-                // Creamos o guardamos la carpeta de destino 
-                Path carpeta = Paths.get("json_processed");
-                if(!Files.exists(carpeta)){
-                    Files.createDirectories(carpeta);
-                }
-
-                // Guardamos el destino
-                Path lugarDestino = carpeta.resolve(json.getOriginalFilename());
-                Files.copy(json.getInputStream(), lugarDestino, StandardCopyOption.REPLACE_EXISTING);  
+  
 
             }
         }catch(Exception e){
-            e.printStackTrace();
-            return 0;
+            contadorErrores++;
+            customerLogin.error("userService", "PostJson", "Error en la linea " + lineas + ":" + e);
         }
+
+        customerLogin.info("userService", "PostJson", "S'han guardar correctament " + contadorInsertados + " y han dado error " + contadorErrores);
         return contadorInsertados;
         
     }

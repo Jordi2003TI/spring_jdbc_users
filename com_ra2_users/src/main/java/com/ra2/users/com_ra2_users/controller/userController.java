@@ -131,7 +131,7 @@ public class userController {
     
     
     @PostMapping("users/upload-json")
-    public ResponseEntity<String> PostJson(@RequestParam MultipartFile json) {
+    public ResponseEntity<String> PostJson(@RequestParam MultipartFile json) throws IOException {
         int resultado = userServices.PostJson(json);
 
         if(resultado == 0){

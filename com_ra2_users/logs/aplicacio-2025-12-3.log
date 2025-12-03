@@ -41,3 +41,7 @@
 [2025-12-3 19:7:42] INFO - userService - getOneUser - Consultando user con id 2
 [2025-12-3 19:8:14] INFO - userService - uploadCsv - Carregant la informacio del fitxer csv
 [2025-12-3 19:8:14] INFO - userService - uploadCsv - S'han guardat correctament 4 i hsn donat error 2 registres
+[2025-12-3 19:24:42] INFO - userService - PostJson - Carregant la informacio del fitxer json
+[2025-12-3 19:24:42] INFO - userService - PostJson - Carregant la informacio del fitxer json
+[2025-12-3 19:24:42] INFO - userService - PostJson - Carregant la informacio del fitxer json
+[2025-12-3 19:24:42] INFO - userService - PostJson - S'han guardar correctament 3 y han dado error 0
